@@ -97,7 +97,7 @@ public class GpfdistSinkProperties {
 	/**
 	 * Data record column delimiter. *(Character, default: no default)
 	 */
-	private Character columnDelimiter;
+	private String columnDelimiter;
 
 	/**
 	 * Mode, either insert or update (String, no default)
@@ -258,11 +258,11 @@ public class GpfdistSinkProperties {
 		this.delimiter = delimiter;
 	}
 
-	public Character getColumnDelimiter() {
+	public String getColumnDelimiter() {
 		return columnDelimiter;
 	}
 
-	public void setColumnDelimiter(Character columnDelimiter) {
+	public void setColumnDelimiter(String columnDelimiter) {
 		this.columnDelimiter = columnDelimiter;
 	}
 

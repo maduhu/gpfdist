@@ -37,7 +37,7 @@ public class ReadableTableFactoryBean implements FactoryBean<ReadableTable>, Ini
 	private String like;
 	private boolean keeptable;
 	private Format format = Format.TEXT;
-	private Character delimiter;
+	private String delimiter;
 	private String nullString;
 	private Character escape;
 	private Character quote;
@@ -70,11 +70,11 @@ public class ReadableTableFactoryBean implements FactoryBean<ReadableTable>, Ini
 		w.setSegmentRejectType(segmentRejectType);
 
 		if (format == Format.TEXT) {
-			Character delim = delimiter != null ? delimiter : Character.valueOf('\t');
+			String delim = delimiter != null ? delimiter : "\t";
 			w.setTextFormat(delim, nullString, escape);
 		}
 		else if (format == Format.CSV) {
-			Character delim = delimiter != null ? delimiter : Character.valueOf(',');
+			String delim = delimiter != null ? delimiter : ",";
 			w.setCsvFormat(quote, delim, nullString, forceQuote, escape);
 		}
 
@@ -195,11 +195,11 @@ public class ReadableTableFactoryBean implements FactoryBean<ReadableTable>, Ini
 		this.forceQuote = Arrays.copyOf(forceQuote, forceQuote.length);
 	}
 
-	public Character getDelimiter() {
+	public String getDelimiter() {
 		return delimiter;
 	}
 
-	public void setDelimiter(Character delimiter) {
+	public void setDelimiter(String delimiter) {
 		this.delimiter = delimiter;
 	}
 

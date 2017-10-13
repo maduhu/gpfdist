@@ -35,7 +35,7 @@ public abstract class AbstractExternalTable {
 	private Format format;
 
 	// [DELIMITER [AS] 'delimiter' | 'OFF']
-	private Character delimiter;
+	private String delimiter;
 
 	// [NULL [AS] 'null string']
 	private String nullString;
@@ -68,7 +68,7 @@ public abstract class AbstractExternalTable {
 		this.format = Format.TEXT;
 	}
 
-	public void setTextFormat(Character delimiter, String nullString, Character escape) {
+	public void setTextFormat(String delimiter, String nullString, Character escape) {
 		this.format = Format.TEXT;
 		this.delimiter = delimiter;
 		this.nullString = nullString;
@@ -79,8 +79,8 @@ public abstract class AbstractExternalTable {
 		this.format = Format.CSV;
 	}
 
-	public void setCsvFormat(Character quote, Character delimiter, String nullString, String[] forceQuote,
-			Character escape) {
+	public void setCsvFormat(Character quote, String delimiter, String nullString, String[] forceQuote,
+							 Character escape) {
 		this.format = Format.CSV;
 		this.formatQuote = quote;
 		this.delimiter = delimiter;
@@ -93,11 +93,11 @@ public abstract class AbstractExternalTable {
 		return format;
 	}
 
-	public Character getDelimiter() {
+	public String getDelimiter() {
 		return delimiter;
 	}
 
-	public void setDelimiter(Character delimiter) {
+	public void setDelimiter(String delimiter) {
 		this.delimiter = delimiter;
 	}
 

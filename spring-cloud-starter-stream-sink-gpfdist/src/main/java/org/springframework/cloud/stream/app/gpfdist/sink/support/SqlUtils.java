@@ -77,7 +77,11 @@ public abstract class SqlUtils {
 		buf.append(" ( ");
 		buf.append("DELIMITER '");
 		if (externalTable.getDelimiter() != null) {
-			buf.append(unicodeEscaped(externalTable.getDelimiter().charValue()));
+			if (externalTable.getDelimiter().equals("OFF")) {
+				buf.append("OFF");
+			} else {
+				buf.append(unicodeEscaped(externalTable.getDelimiter().charAt(0)));
+			}
 		}
 		else {
 			buf.append("|");

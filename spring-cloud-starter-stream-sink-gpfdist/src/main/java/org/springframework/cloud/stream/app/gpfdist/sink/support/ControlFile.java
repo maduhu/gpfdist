@@ -21,7 +21,7 @@ import java.util.List;
 
 public class ControlFile {
 
-	private Character gploadInputDelimiter;
+	private String gploadInputDelimiter;
 
 	private String gploadOutputTable;
 
@@ -47,11 +47,11 @@ public class ControlFile {
 
 	private final List<String> gploadSqlAfter = new ArrayList<String>();
 
-	public Character getGploadInputDelimiter() {
+	public String getGploadInputDelimiter() {
 		return gploadInputDelimiter;
 	}
 
-	public void setGploadInputDelimiter(Character gploadInputDelimiter) {
+	public void setGploadInputDelimiter(String gploadInputDelimiter) {
 		this.gploadInputDelimiter = gploadInputDelimiter;
 	}
 

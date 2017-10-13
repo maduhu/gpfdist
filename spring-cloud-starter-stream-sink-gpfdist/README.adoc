@@ -32,7 +32,7 @@ The **$$gpfdist$$** $$sink$$ has the following options:
 $$gpfdist.batch-count$$:: $$Number of windowed batch each segment takest (int, default: 100)$$ *($$Integer$$, default: `$$100$$`)*
 $$gpfdist.batch-period$$:: $$Time in seconds for each load operation to sleep in between operations (int, default: 10)$$ *($$Integer$$, default: `$$10$$`)*
 $$gpfdist.batch-timeout$$:: $$Timeout in seconds for segment inactivity. (Integer, default: 4)$$ *($$Integer$$, default: `$$4$$`)*
-$$gpfdist.column-delimiter$$:: $$Data record column delimiter. *(Character, default: no default)$$ *($$Character$$, default: `$$<none>$$`)*
+$$gpfdist.column-delimiter$$:: $$Data record column delimiter. *(Character, default: no default)$$ *($$String$$, default: `$$<none>$$`)*
 $$gpfdist.control-file$$:: $$Path to yaml control file (String, no default)$$ *($$Resource$$, default: `$$<none>$$`)*
 $$gpfdist.db-host$$:: $$Database host (String, default: localhost)$$ *($$String$$, default: `$$localhost$$`)*
 $$gpfdist.db-name$$:: $$Database name (String, default: gpadmin)$$ *($$String$$, default: `$$gpadmin$$`)*
@@ -59,7 +59,7 @@ $$spring.net.hostdiscovery.loopback$$:: $$The new loopback flag. Default value i
 $$spring.net.hostdiscovery.match-interface$$:: $$The new match interface regex pattern. Default value is is empty$$ *($$String$$, default: `$$<none>$$`)*
 $$spring.net.hostdiscovery.match-ipv4$$:: $$Used to match ip address from a network using a cidr notation$$ *($$String$$, default: `$$<none>$$`)*
 $$spring.net.hostdiscovery.point-to-point$$:: $$The new point to point flag. Default value is FALSE$$ *($$Boolean$$, default: `$$false$$`)*
-$$spring.net.hostdiscovery.prefer-interface$$:: $$The new preferred interface list$$ *($$java.util.List<java.lang.String>$$, default: `$$<none>$$`)*
+$$spring.net.hostdiscovery.prefer-interface$$:: $$The new preferred interface list$$ *($$List<String>$$, default: `$$<none>$$`)*
 //end::configuration-properties[]
 
 == Implementation Notes
