@@ -59,7 +59,7 @@ $$spring.net.hostdiscovery.loopback$$:: $$The new loopback flag. Default value i
 $$spring.net.hostdiscovery.match-interface$$:: $$The new match interface regex pattern. Default value is is empty$$ *($$String$$, default: `$$<none>$$`)*
 $$spring.net.hostdiscovery.match-ipv4$$:: $$Used to match ip address from a network using a cidr notation$$ *($$String$$, default: `$$<none>$$`)*
 $$spring.net.hostdiscovery.point-to-point$$:: $$The new point to point flag. Default value is FALSE$$ *($$Boolean$$, default: `$$false$$`)*
-$$spring.net.hostdiscovery.prefer-interface$$:: $$The new preferred interface list$$ *($$java.util.List<java.lang.String>$$, default: `$$<none>$$`)*
+$$spring.net.hostdiscovery.prefer-interface$$:: $$The new preferred interface list$$ *($$List<String>$$, default: `$$<none>$$`)*
 //end::configuration-properties[]
 
 == Implementation Notes

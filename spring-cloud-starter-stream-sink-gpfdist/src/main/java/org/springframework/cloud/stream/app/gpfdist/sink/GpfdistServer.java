@@ -20,6 +20,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.reactivestreams.Processor;
 import org.reactivestreams.Publisher;
+import org.springframework.util.SocketUtils;
 import reactor.core.processor.RingBufferWorkProcessor;
 import reactor.fn.BiFunction;
 import reactor.fn.Function;
@@ -43,6 +44,8 @@ import java.util.concurrent.TimeUnit;
 public class GpfdistServer {
 
 	private final static Log log = LogFactory.getLog(GpfdistServer.class);
+	private final static int GPFDIST_MIN_PORT = 8000;
+	private final static int GPFDIST_MAX_PORT = 9000;
 
 	private final Processor<Buffer, Buffer> processor;
 	private final int port;
@@ -136,7 +139,7 @@ public class GpfdistServer {
 					public HttpServerSpec<Buffer, Buffer> apply(HttpServerSpec<Buffer, Buffer> server) {
 						return server
 								.codec(new GpfdistCodec())
-								.listen(port);
+								.listen(resolveServerPort(port));
 					}
 				});
 
@@ -164,5 +167,12 @@ public class GpfdistServer {
 		log.info("Server running using address=[" + httpServer.getListenAddress() + "]");
 		localPort = httpServer.getListenAddress().getPort();
 		return httpServer;
+	}
+
+	private int resolveServerPort(int port) {
+		if (port > 0) {
+			return port;
+		}
+		return SocketUtils.findAvailableTcpPort(GPFDIST_MIN_PORT, GPFDIST_MAX_PORT);
 	}
 }
