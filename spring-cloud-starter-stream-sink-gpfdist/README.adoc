@@ -44,6 +44,7 @@ $$`)*
 $$gpfdist.error-table$$:: $$Tablename to log errors. (String, default: ``)$$ *($$String$$, default: `$$<none>$$`)*
 $$gpfdist.flush-count$$:: $$Flush item count (int, default: 100)$$ *($$Integer$$, default: `$$100$$`)*
 $$gpfdist.flush-time$$:: $$Flush item time (int, default: 2)$$ *($$Integer$$, default: `$$2$$`)*
+$$gpfdist.format$$:: $$Configure either `TEXT` or `CSV` file format. (String, default: `TEXT`)$$ *($$Format$$, default: `$$<none>$$`, possible values: `TEXT`,`CSV`)*
 $$gpfdist.gpfdist-port$$:: $$Port of gpfdist server. Default port `0` indicates that a random port is chosen. (Integer, default: 0)$$ *($$Integer$$, default: `$$0$$`)*
 $$gpfdist.match-columns$$:: $$Match columns with update (String, no default)$$ *($$String$$, default: `$$<none>$$`)*
 $$gpfdist.mode$$:: $$Mode, either insert or update (String, no default)$$ *($$String$$, default: `$$<none>$$`)*
@@ -59,7 +60,7 @@ $$spring.net.hostdiscovery.loopback$$:: $$The new loopback flag. Default value i
 $$spring.net.hostdiscovery.match-interface$$:: $$The new match interface regex pattern. Default value is is empty$$ *($$String$$, default: `$$<none>$$`)*
 $$spring.net.hostdiscovery.match-ipv4$$:: $$Used to match ip address from a network using a cidr notation$$ *($$String$$, default: `$$<none>$$`)*
 $$spring.net.hostdiscovery.point-to-point$$:: $$The new point to point flag. Default value is FALSE$$ *($$Boolean$$, default: `$$false$$`)*
-$$spring.net.hostdiscovery.prefer-interface$$:: $$The new preferred interface list$$ *($$java.util.List<java.lang.String>$$, default: `$$<none>$$`)*
+$$spring.net.hostdiscovery.prefer-interface$$:: $$The new preferred interface list$$ *($$List<String>$$, default: `$$<none>$$`)*
 //end::configuration-properties[]
 
 == Implementation Notes

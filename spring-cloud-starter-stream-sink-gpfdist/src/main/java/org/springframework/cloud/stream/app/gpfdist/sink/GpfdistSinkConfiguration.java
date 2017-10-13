@@ -104,6 +104,7 @@ public class GpfdistSinkConfiguration {
 		factoryBean.setSegmentReject(properties.getSegmentRejectLimit());
 		factoryBean.setSegmentRejectType(properties.getSegmentRejectType());
 		factoryBean.setNullString(properties.getNullString());
+		factoryBean.setFormat(properties.getFormat());
 		HostInfo hostInfo = hostInfoDiscovery.getHostInfo();
 		factoryBean.setLocations(Arrays.asList(NetworkUtils.getGPFDistUri(hostInfo.getAddress(), properties.getGpfdistPort())));
 		return factoryBean;

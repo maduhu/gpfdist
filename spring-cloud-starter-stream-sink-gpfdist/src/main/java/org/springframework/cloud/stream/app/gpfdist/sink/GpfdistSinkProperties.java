@@ -17,6 +17,7 @@
 package org.springframework.cloud.stream.app.gpfdist.sink;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.stream.app.gpfdist.sink.support.Format;
 import org.springframework.cloud.stream.app.gpfdist.sink.support.SegmentRejectType;
 import org.springframework.core.io.Resource;
 
@@ -153,6 +154,11 @@ public class GpfdistSinkProperties {
 	 * Null string definition. (String, default: ``)
 	 */
 	private String nullString;
+
+	/**
+	 * Configure either `TEXT` or `CSV` file format. (String, default: `TEXT`)
+	 */
+	private Format format = Format.TEXT;
 
 	public int getGpfdistPort() {
 		return gpfdistPort;
@@ -352,5 +358,13 @@ public class GpfdistSinkProperties {
 
 	public void setNullString(String nullString) {
 		this.nullString = nullString;
+	}
+
+	public Format getFormat() {
+		return format;
+	}
+
+	public void setFormat(Format format) {
+		this.format = format;
 	}
 }
