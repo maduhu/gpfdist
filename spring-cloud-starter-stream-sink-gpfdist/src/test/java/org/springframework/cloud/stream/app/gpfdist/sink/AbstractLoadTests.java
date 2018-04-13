@@ -16,21 +16,26 @@
 
 package org.springframework.cloud.stream.app.gpfdist.sink;
 
+import java.util.Arrays;
+import java.util.List;
+
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.junit.After;
 import org.junit.Before;
 import org.reactivestreams.Processor;
-import org.springframework.cloud.stream.app.gpfdist.sink.support.*;
+import reactor.core.publisher.WorkQueueProcessor;
+
+import org.springframework.cloud.stream.app.gpfdist.sink.support.Format;
+import org.springframework.cloud.stream.app.gpfdist.sink.support.LoadConfiguration;
+import org.springframework.cloud.stream.app.gpfdist.sink.support.LoadFactoryBean;
+import org.springframework.cloud.stream.app.gpfdist.sink.support.NetworkUtils;
+import org.springframework.cloud.stream.app.gpfdist.sink.support.ReadableTableFactoryBean;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.hadoop.util.net.DefaultHostInfoDiscovery;
 import org.springframework.jdbc.core.JdbcTemplate;
-import reactor.Environment;
-import reactor.core.processor.RingBufferProcessor;
-import reactor.io.buffer.Buffer;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Base integration support for using local protocol listener.
@@ -42,7 +47,7 @@ public abstract class AbstractLoadTests {
 
 	protected AnnotationConfigApplicationContext context;
 
-	protected Processor<Buffer, Buffer> processor;
+	private Processor<ByteBuf, ByteBuf> processor;
 
 	private GpfdistServer server;
 
@@ -84,14 +89,13 @@ public abstract class AbstractLoadTests {
 
 	protected void broadcastData(List<String> data) {
 		for (String d : data) {
-			processor.onNext(Buffer.wrap(d));
+			processor.onNext(Unpooled.copiedBuffer(d.getBytes()));
 		}
 	}
 
 	@Before
 	public void setup() throws Exception {
-		Environment.initializeIfEmpty().assignErrorJournal();
-		processor = RingBufferProcessor.create(false);
+		processor = WorkQueueProcessor.create();
 		server = new GpfdistServer(processor, 8080, 1, 1, 1, 10);
 		server.start();
 		context = new AnnotationConfigApplicationContext();

@@ -16,10 +16,18 @@
 
 package org.springframework.cloud.stream.app.gpfdist.sink;
 
+import java.util.Date;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.TimeUnit;
+
 import com.codahale.metrics.Meter;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.reactivestreams.Processor;
+import reactor.core.publisher.WorkQueueProcessor;
+
 import org.springframework.cloud.stream.app.gpfdist.sink.support.GreenplumLoad;
 import org.springframework.cloud.stream.app.gpfdist.sink.support.NetworkUtils;
 import org.springframework.cloud.stream.app.gpfdist.sink.support.RuntimeContext;
@@ -29,13 +37,6 @@ import org.springframework.messaging.MessageHandlingException;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.util.StringUtils;
 import org.springframework.util.concurrent.SettableListenableFuture;
-import reactor.Environment;
-import reactor.core.processor.RingBufferProcessor;
-import reactor.io.buffer.Buffer;
-
-import java.util.Date;
-import java.util.concurrent.FutureTask;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Gpfdist related {@code MessageHandler}.
@@ -54,12 +55,12 @@ public class GpfdistMessageHandler extends AbstractGpfdistMessageHandler {
 	private final int batchPeriod;
 	private final String delimiter;
 	private GreenplumLoad greenplumLoad;
-	private Processor<Buffer, Buffer> processor;
+	private Processor<ByteBuf, ByteBuf> processor;
 	private GpfdistServer gpfdistServer;
 	private TaskScheduler sqlTaskScheduler;
 	private final TaskFuture taskFuture = new TaskFuture();
 	private int rateInterval = 0;
-	private Meter meter =  null;
+	private Meter meter = null;
 	private int meterCount = 0;
 	private final HostInfoDiscovery hostInfoDiscovery;
 
@@ -89,14 +90,15 @@ public class GpfdistMessageHandler extends AbstractGpfdistMessageHandler {
 	}
 
 	@Override
-	protected void doWrite(Message<?> message) throws Exception {
+	protected void doWrite(Message<?> message) {
 		Object payload = message.getPayload();
 		if (payload instanceof String) {
-			String data = (String)payload;
+			String data = (String) payload;
 			if (delimiter != null) {
-				processor.onNext(Buffer.wrap(data+delimiter));
-			} else {
-				processor.onNext(Buffer.wrap(data));
+				processor.onNext(Unpooled.copiedBuffer((data + delimiter).getBytes()));
+			}
+			else {
+				processor.onNext(Unpooled.copiedBuffer((data).getBytes()));
 			}
 			if (meter != null) {
 				if ((meterCount++ % rateInterval) == 0) {
@@ -104,7 +106,8 @@ public class GpfdistMessageHandler extends AbstractGpfdistMessageHandler {
 					log.info("METER: 1 minute rate = " + meter.getOneMinuteRate() + " mean rate = " + meter.getMeanRate());
 				}
 			}
-		} else {
+		}
+		else {
 			throw new MessageHandlingException(message, "message not a String");
 		}
 	}
@@ -112,8 +115,7 @@ public class GpfdistMessageHandler extends AbstractGpfdistMessageHandler {
 	@Override
 	protected void onInit() throws Exception {
 		super.onInit();
-		Environment.initializeIfEmpty().assignErrorJournal();
-		processor = RingBufferProcessor.create(false);
+		processor = WorkQueueProcessor.create();
 	}
 
 	@Override
@@ -123,7 +125,8 @@ public class GpfdistMessageHandler extends AbstractGpfdistMessageHandler {
 			gpfdistServer = new GpfdistServer(processor, port, flushCount, flushTime, batchTimeout, batchCount);
 			gpfdistServer.start();
 			log.info("gpfdist protocol listener running on port=" + gpfdistServer.getLocalPort());
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			throw new RuntimeException("Error starting protocol listener", e);
 		}
 
@@ -138,22 +141,25 @@ public class GpfdistMessageHandler extends AbstractGpfdistMessageHandler {
 				public void run() {
 					boolean taskValue = true;
 					try {
-						while(!taskFuture.interrupted) {
+						while (!taskFuture.interrupted) {
 							try {
 								greenplumLoad.load(context);
-							} catch (Exception e) {
+							}
+							catch (Exception e) {
 								log.error("Error in load", e);
 							}
-							Thread.sleep(batchPeriod*1000);
+							Thread.sleep(batchPeriod * 1000);
 						}
-					} catch (Exception e) {
+					}
+					catch (Exception e) {
 						taskValue = false;
 					}
 					taskFuture.set(taskValue);
 				}
 			}, null)), new Date());
 
-		} else {
+		}
+		else {
 			log.info("Skipping gpload tasks because greenplumLoad is not set");
 		}
 	}
@@ -168,7 +174,8 @@ public class GpfdistMessageHandler extends AbstractGpfdistMessageHandler {
 				Boolean value = taskFuture.get(batchTimeout + batchPeriod + 2, TimeUnit.SECONDS);
 				log.info("Stopping, got future value " + value + " from task which took "
 						+ (System.currentTimeMillis() - now) + "ms");
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
 				log.warn("Got error from task wait value which may indicate trouble", e);
 			}
 		}
@@ -176,7 +183,8 @@ public class GpfdistMessageHandler extends AbstractGpfdistMessageHandler {
 		try {
 			processor.onComplete();
 			gpfdistServer.stop();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			log.warn("Error shutting down protocol listener", e);
 		}
 	}

@@ -16,9 +16,10 @@
     </parent>
 
     <properties>
-        <reactor.version>2.0.8.RELEASE</reactor.version>
+        <reactor.version>3.1.6.RELEASE</reactor.version>
+		<reactor-netty.version>0.7.6.RELEASE</reactor-netty.version>
         <codahale.version>3.0.2</codahale.version>
-        <netty.version>4.0.27.Final</netty.version>
+        <netty.version>4.1.23.Final</netty.version>
         <postgresql.version>9.4-1201-jdbc41</postgresql.version>
         <commons-dbcp.version>1.4</commons-dbcp.version>
         <spring-jdbc.version>4.3.5.RELEASE</spring-jdbc.version>
@@ -38,9 +39,9 @@
                 <version>${reactor.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.projectreactor</groupId>
-                <artifactId>reactor-net</artifactId>
-                <version>${reactor.version}</version>
+                <groupId>io.projectreactor.ipc</groupId>
+                <artifactId>reactor-netty</artifactId>
+                <version>${reactor-netty.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.codahale.metrics</groupId>

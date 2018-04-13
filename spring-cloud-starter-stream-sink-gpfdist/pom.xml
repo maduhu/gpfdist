@@ -30,8 +30,8 @@
 			<artifactId>reactor-core</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>io.projectreactor</groupId>
-			<artifactId>reactor-net</artifactId>
+			<groupId>io.projectreactor.ipc</groupId>
+			<artifactId>reactor-netty</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.codahale.metrics</groupId>
