@@ -23,7 +23,7 @@
         <postgresql.version>9.4-1201-jdbc41</postgresql.version>
         <commons-dbcp.version>1.4</commons-dbcp.version>
         <spring-jdbc.version>4.3.5.RELEASE</spring-jdbc.version>
-        <spring-data-hadoop.version>2.4.0.RELEASE</spring-data-hadoop.version>
+        <commons-net.version>3.5</commons-net.version>
     </properties>
 
     <dependencyManagement>
@@ -70,18 +70,12 @@
                 <version>${postgresql.version}</version>
                 <scope>runtime</scope>
             </dependency>
-            <dependency>
-                <groupId>org.springframework.data</groupId>
-                <artifactId>spring-data-hadoop-util</artifactId>
-                <version>${spring-data-hadoop.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.apache.hadoop</groupId>
-                        <artifactId>*</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-        </dependencies>
+			<dependency>
+				<groupId>commons-net</groupId>
+				<artifactId>commons-net</artifactId>
+				<version>${commons-net.version}</version>
+			</dependency>
+		</dependencies>
     </dependencyManagement>
 <profiles>
 		<profile>

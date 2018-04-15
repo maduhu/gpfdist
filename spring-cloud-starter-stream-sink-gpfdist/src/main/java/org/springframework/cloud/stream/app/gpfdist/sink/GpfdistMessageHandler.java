@@ -29,9 +29,9 @@ import org.reactivestreams.Processor;
 import reactor.core.publisher.WorkQueueProcessor;
 
 import org.springframework.cloud.stream.app.gpfdist.sink.support.GreenplumLoad;
+import org.springframework.cloud.stream.app.gpfdist.sink.support.HostInfoDiscovery;
 import org.springframework.cloud.stream.app.gpfdist.sink.support.NetworkUtils;
 import org.springframework.cloud.stream.app.gpfdist.sink.support.RuntimeContext;
-import org.springframework.data.hadoop.util.net.HostInfoDiscovery;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHandlingException;
 import org.springframework.scheduling.TaskScheduler;

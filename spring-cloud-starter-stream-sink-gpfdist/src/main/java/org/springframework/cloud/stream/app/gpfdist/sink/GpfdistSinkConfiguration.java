@@ -23,9 +23,6 @@ import org.springframework.cloud.stream.app.gpfdist.sink.support.*;
 import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.hadoop.util.net.DefaultHostInfoDiscovery;
-import org.springframework.data.hadoop.util.net.HostInfoDiscovery;
-import org.springframework.data.hadoop.util.net.HostInfoDiscovery.HostInfo;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
@@ -104,7 +101,7 @@ public class GpfdistSinkConfiguration {
 		factoryBean.setSegmentReject(properties.getSegmentRejectLimit());
 		factoryBean.setSegmentRejectType(properties.getSegmentRejectType());
 		factoryBean.setNullString(properties.getNullString());
-		HostInfo hostInfo = hostInfoDiscovery.getHostInfo();
+		HostInfoDiscovery.HostInfo hostInfo = hostInfoDiscovery.getHostInfo();
 		factoryBean.setLocations(Arrays.asList(NetworkUtils.getGPFDistUri(hostInfo.getAddress(), properties.getGpfdistPort())));
 		return factoryBean;
 	}

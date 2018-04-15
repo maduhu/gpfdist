@@ -27,6 +27,7 @@ import org.junit.Before;
 import org.reactivestreams.Processor;
 import reactor.core.publisher.WorkQueueProcessor;
 
+import org.springframework.cloud.stream.app.gpfdist.sink.support.DefaultHostInfoDiscovery;
 import org.springframework.cloud.stream.app.gpfdist.sink.support.Format;
 import org.springframework.cloud.stream.app.gpfdist.sink.support.LoadConfiguration;
 import org.springframework.cloud.stream.app.gpfdist.sink.support.LoadFactoryBean;
@@ -34,7 +35,6 @@ import org.springframework.cloud.stream.app.gpfdist.sink.support.NetworkUtils;
 import org.springframework.cloud.stream.app.gpfdist.sink.support.ReadableTableFactoryBean;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.hadoop.util.net.DefaultHostInfoDiscovery;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
