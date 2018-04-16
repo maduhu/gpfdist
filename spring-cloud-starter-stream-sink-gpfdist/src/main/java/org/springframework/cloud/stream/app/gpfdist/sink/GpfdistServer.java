@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 the original author or authors.
+ * Copyright 2016-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,15 +32,21 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.WorkQueueProcessor;
 import reactor.ipc.netty.NettyContext;
 import reactor.ipc.netty.http.server.HttpServer;
+
+import org.springframework.util.SocketUtils;
+
 /**
  * Server implementation around reactor and netty providing endpoint
  * where data can be sent using a gpfdist protocol.
  *
  * @author Janne Valkealahti
+ * @author Christian Tzolov
  */
 public class GpfdistServer {
 
 	private final static Log log = LogFactory.getLog(GpfdistServer.class);
+	private final static int GPFDIST_MIN_PORT = 8000;
+	private final static int GPFDIST_MAX_PORT = 9000;
 
 	private final Processor<ByteBuf, ByteBuf> processor;
 	private final int port;
@@ -135,7 +141,7 @@ public class GpfdistServer {
 
 
 		NettyContext httpServer = HttpServer
-				.create(c -> c.host("0.0.0.0").port(port)
+				.create(c -> c.host("0.0.0.0").port(resolveServerPort(this.port))
 						.eventLoopGroup(new NioEventLoopGroup(10)))
 				.newRouter(r -> r.get("/data", (request, response) -> {
 					response.chunkedTransfer(false);
@@ -203,5 +209,12 @@ public class GpfdistServer {
 					.writeBytes(ByteBuffer.allocate(4).putInt(t.readableBytes()).array())
 					.writeBytes(t);
 		}
+	}
+
+	private int resolveServerPort(int port) {
+		if (port > 0) {
+			return port;
+		}
+		return SocketUtils.findAvailableTcpPort(GPFDIST_MIN_PORT, GPFDIST_MAX_PORT);
 	}
 }
