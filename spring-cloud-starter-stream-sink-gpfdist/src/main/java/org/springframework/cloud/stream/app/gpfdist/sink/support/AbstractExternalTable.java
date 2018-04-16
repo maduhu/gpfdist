@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 the original author or authors.
+ * Copyright 2016-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import java.util.List;
  *
  * @author Janne Valkealahti
  * @author Gary Russell
+ * @author Christian Tzolov
  */
 public abstract class AbstractExternalTable {
 
@@ -35,7 +36,7 @@ public abstract class AbstractExternalTable {
 	private Format format;
 
 	// [DELIMITER [AS] 'delimiter' | 'OFF']
-	private Character delimiter;
+	private String delimiter;
 
 	// [NULL [AS] 'null string']
 	private String nullString;
@@ -68,7 +69,7 @@ public abstract class AbstractExternalTable {
 		this.format = Format.TEXT;
 	}
 
-	public void setTextFormat(Character delimiter, String nullString, Character escape) {
+	public void setTextFormat(String delimiter, String nullString, Character escape) {
 		this.format = Format.TEXT;
 		this.delimiter = delimiter;
 		this.nullString = nullString;
@@ -79,7 +80,7 @@ public abstract class AbstractExternalTable {
 		this.format = Format.CSV;
 	}
 
-	public void setCsvFormat(Character quote, Character delimiter, String nullString, String[] forceQuote,
+	public void setCsvFormat(Character quote, String delimiter, String nullString, String[] forceQuote,
 			Character escape) {
 		this.format = Format.CSV;
 		this.formatQuote = quote;
@@ -93,11 +94,11 @@ public abstract class AbstractExternalTable {
 		return format;
 	}
 
-	public Character getDelimiter() {
+	public String getDelimiter() {
 		return delimiter;
 	}
 
-	public void setDelimiter(Character delimiter) {
+	public void setDelimiter(String delimiter) {
 		this.delimiter = delimiter;
 	}
 

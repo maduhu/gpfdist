@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 the original author or authors.
+ * Copyright 2016-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,12 @@ package org.springframework.cloud.stream.app.gpfdist.sink.support;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Christian Tzolov
+ */
 public class ControlFile {
 
-	private Character gploadInputDelimiter;
+	private String gploadInputDelimiter;
 
 	private String gploadOutputTable;
 
@@ -47,11 +50,11 @@ public class ControlFile {
 
 	private final List<String> gploadSqlAfter = new ArrayList<String>();
 
-	public Character getGploadInputDelimiter() {
+	public String getGploadInputDelimiter() {
 		return gploadInputDelimiter;
 	}
 
-	public void setGploadInputDelimiter(Character gploadInputDelimiter) {
+	public void setGploadInputDelimiter(String gploadInputDelimiter) {
 		this.gploadInputDelimiter = gploadInputDelimiter;
 	}
 

@@ -32,7 +32,7 @@ The **$$gpfdist$$** $$sink$$ has the following options:
 $$gpfdist.batch-count$$:: $$Number of windowed batch each segment takest (int, default: 100)$$ *($$Integer$$, default: `$$100$$`)*
 $$gpfdist.batch-period$$:: $$Time in seconds for each load operation to sleep in between operations (int, default: 10)$$ *($$Integer$$, default: `$$10$$`)*
 $$gpfdist.batch-timeout$$:: $$Timeout in seconds for segment inactivity. (Integer, default: 4)$$ *($$Integer$$, default: `$$4$$`)*
-$$gpfdist.column-delimiter$$:: $$Data record column delimiter. *(Character, default: no default)$$ *($$Character$$, default: `$$<none>$$`)*
+$$gpfdist.column-delimiter$$:: $$Data record column delimiter. *(String, default: no default)$$ *($$String$$, default: `$$<none>$$`)*
 $$gpfdist.control-file$$:: $$Path to yaml control file (String, no default)$$ *($$Resource$$, default: `$$<none>$$`)*
 $$gpfdist.db-host$$:: $$Database host (String, default: localhost)$$ *($$String$$, default: `$$localhost$$`)*
 $$gpfdist.db-name$$:: $$Database name (String, default: gpadmin)$$ *($$String$$, default: `$$gpadmin$$`)*

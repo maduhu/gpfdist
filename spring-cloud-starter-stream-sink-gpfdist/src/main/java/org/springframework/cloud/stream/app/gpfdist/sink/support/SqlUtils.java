@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 the original author or authors.
+ * Copyright 2016-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import java.util.List;
  * needed with gpfdist.
  *
  * @author Janne Valkealahti
+ * @author Christian Tzolov
  */
 public abstract class SqlUtils {
 
@@ -77,7 +78,11 @@ public abstract class SqlUtils {
 		buf.append(" ( ");
 		buf.append("DELIMITER '");
 		if (externalTable.getDelimiter() != null) {
-			buf.append(unicodeEscaped(externalTable.getDelimiter().charValue()));
+			if (externalTable.getDelimiter().equals("OFF")) {
+				buf.append("OFF");
+			} else {
+				buf.append(unicodeEscaped(externalTable.getDelimiter().charAt(0)));
+			}
 		}
 		else {
 			buf.append("|");

@@ -38,7 +38,7 @@ public class ControlFileTests {
 
 		ControlFile cf = context.getBean(ControlFile.class);
 		assertThat(cf.getGploadOutputTable(), is("test"));
-		assertThat(cf.getGploadInputDelimiter(), is(','));
+		assertThat(cf.getGploadInputDelimiter(), is(","));
 		assertThat(cf.getDatabase(), is("gpadmin"));
 		assertThat(cf.getUser(), is("gpadmin"));
 		assertThat(cf.getHost(), is("mdw.example.org"));

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 the original author or authors.
+ * Copyright 2016-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -123,11 +123,11 @@ public class ControlFileFactoryBean implements FactoryBean<ControlFile>, Initial
 										for (Entry<String, Object> e2 : tableMap.entrySet()) {
 											if (e2.getKey().toLowerCase().equals("delimiter")) {
 												if (e2.getValue() instanceof Character) {
-													cf.setGploadInputDelimiter((Character) e2.getValue());
+													cf.setGploadInputDelimiter(String.valueOf(e2.getValue()));
 												}
 												else if (e2.getValue() instanceof String) {
 													if (((String) e2.getValue()).length() == 1) {
-														cf.setGploadInputDelimiter(((String) e2.getValue()).charAt(0));
+														cf.setGploadInputDelimiter(((String) e2.getValue()));
 													}
 												}
 											}

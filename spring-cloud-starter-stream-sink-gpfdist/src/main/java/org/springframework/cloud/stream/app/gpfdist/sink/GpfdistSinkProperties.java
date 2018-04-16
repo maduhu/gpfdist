@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 the original author or authors.
+ * Copyright 2016-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ import org.springframework.core.io.Resource;
  *
  * @author Janne Valkealahti
  * @author Sabby Anandan
+ * @author Christian Tzolov
  */
 @ConfigurationProperties("gpfdist")
 public class GpfdistSinkProperties {
@@ -96,9 +97,9 @@ public class GpfdistSinkProperties {
 	private String delimiter = "\n";
 
 	/**
-	 * Data record column delimiter. *(Character, default: no default)
+	 * Data record column delimiter. *(String, default: no default)
 	 */
-	private Character columnDelimiter;
+	private String columnDelimiter;
 
 	/**
 	 * Mode, either insert or update (String, no default)
@@ -264,11 +265,11 @@ public class GpfdistSinkProperties {
 		this.delimiter = delimiter;
 	}
 
-	public Character getColumnDelimiter() {
+	public String getColumnDelimiter() {
 		return columnDelimiter;
 	}
 
-	public void setColumnDelimiter(Character columnDelimiter) {
+	public void setColumnDelimiter(String columnDelimiter) {
 		this.columnDelimiter = columnDelimiter;
 	}
 
